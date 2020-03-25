@@ -40,6 +40,10 @@
 # MAGIC 
 # MAGIC > a configuração das credenciais do **azure blob storage** utilizando o **databricks cli** adiciona um layer de segurança, sendo assim não se faz necessário a   
 # MAGIC > utilização das chaves de forma explícita dentro do notebook do Azure Databricks
+# MAGIC <br>
+# MAGIC 
+# MAGIC > para configurar o Databricks CLI dentro do Azure Cloud Shell, siga as seguintes instruções:  
+# MAGIC > [Databricks CLI & Azure Cloud Shell](https://docs.microsoft.com/pt-pt/azure/azure-databricks/databricks-cli-from-azure-cloud-shell)
 
 # COMMAND ----------
 
