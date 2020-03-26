@@ -1,10 +1,13 @@
 # Databricks notebook source
 # MAGIC %md
+# MAGIC 
+# MAGIC # Revisão das Tabelas
+# MAGIC 
 # MAGIC ##![Spark Logo Tiny](https://kpistoropen.blob.core.windows.net/collateral/roadshow/logo_spark_tiny.png)
 # MAGIC 
 # MAGIC <br>
 # MAGIC 
-# MAGIC > agora que possuímos todas as silver tables (transformações) iremos criar nosso Dw(StarSchema)?/DataSet para consumo dos dados.  
+# MAGIC > agora que possuímos todas as silver tables (transformações) iremos criar nosso Dw(StarSchema)/DataSet para consumo dos dados.  
 # MAGIC > iremos realizar isso utilizando spark-sql para popular as informações vindas as diversas tabelas
 
 # COMMAND ----------
@@ -99,33 +102,11 @@
 # DBTITLE 1,Fato = stream_silver_reviews
 # MAGIC %sql
 # MAGIC 
-# MAGIC --22.601.688
-# MAGIC 
-# MAGIC SELECT COUNT(*)
-# MAGIC FROM delta.`/delta/stream_silver_reviews`
-# MAGIC LIMIT 100
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC 
-# MAGIC --22.601.688
+# MAGIC --31.077.321
 # MAGIC 
 # MAGIC SELECT *
 # MAGIC FROM delta.`/delta/stream_silver_reviews`
 # MAGIC LIMIT 100
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC 
-# MAGIC DELETE FROM delta.`/delta/reviews`
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC 
-# MAGIC VACUUM delta.`/delta/reviews`
 
 # COMMAND ----------
 
@@ -150,7 +131,7 @@
 # DBTITLE 1,Criando DataSet [Gold] no Delta Lake
 # MAGIC %sql
 # MAGIC 
-# MAGIC --48.46
+# MAGIC -- time spent: 1.79 min
 # MAGIC 
 # MAGIC DROP TABLE IF EXISTS gold_reviews;
 # MAGIC 
@@ -184,7 +165,7 @@
 # DBTITLE 1,Quantidade de Registros [gold_reviews]
 # MAGIC %sql
 # MAGIC 
-# MAGIC --22.601.688
+# MAGIC --31.077.321
 # MAGIC 
 # MAGIC SELECT COUNT(*)
 # MAGIC FROM gold_reviews
@@ -196,25 +177,6 @@
 # MAGIC 
 # MAGIC SELECT *
 # MAGIC FROM gold_reviews
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC 
-# MAGIC ## Exploração dos Dados [gold_reviews]
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC 
-# MAGIC -- + 22 mi
-# MAGIC 
-# MAGIC SELECT store_name, store_city, COUNT(*) AS Q
-# MAGIC FROM gold_reviews
-# MAGIC WHERE user_importance = "rockstar"
-# MAGIC GROUP BY store_name, store_city
-# MAGIC ORDER BY Q DESC
-# MAGIC LIMIT 5
 
 # COMMAND ----------
 
