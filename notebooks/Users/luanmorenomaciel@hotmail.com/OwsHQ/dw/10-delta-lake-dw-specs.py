@@ -1,6 +1,12 @@
 # Databricks notebook source
 # MAGIC %md
 # MAGIC 
+# MAGIC # Delta Lake as a Data Warehouse System
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC 
 # MAGIC > https://docs.databricks.com/delta/quick-start.html#id9  
 # MAGIC > https://docs.microsoft.com/en-us/azure/databricks/delta/  
 # MAGIC > https://databricks.com/blog/2019/02/04/introducing-delta-time-travel-for-large-scale-data-lakes.html  
@@ -57,7 +63,7 @@
 
 # MAGIC %sql
 # MAGIC 
-# MAGIC --22.601.688
+# MAGIC --31.077.321
 # MAGIC 
 # MAGIC SELECT COUNT(*)
 # MAGIC FROM gold_reviews
@@ -66,14 +72,14 @@
 
 # MAGIC %sql
 # MAGIC 
-# MAGIC --22.601.688
+# MAGIC --31.077.321
 # MAGIC 
 # MAGIC SELECT store_name, store_city, COUNT(*) AS Q
 # MAGIC FROM gold_reviews
 # MAGIC WHERE user_importance = "rockstar"
 # MAGIC GROUP BY store_name, store_city
 # MAGIC ORDER BY Q DESC
-# MAGIC LIMIT 5
+# MAGIC LIMIT 10
 
 # COMMAND ----------
 
