@@ -79,7 +79,7 @@
 # MAGIC %scala
 # MAGIC 
 # MAGIC  val dwDatabase = "owshq"
-# MAGIC  val dwServer = "owshq" 
+# MAGIC  val dwServer = "onewaysolution" 
 # MAGIC  val dwUser = "luanmoreno"
 # MAGIC  val dwPass = "qq11ww22!!@@"
 # MAGIC  val dwJdbcPort =  "1433"
@@ -104,14 +104,21 @@
 
 # COMMAND ----------
 
-# DBTITLE 1,Inserindo Dados com Scala = 1.96 minutes
+# MAGIC %md
+# MAGIC 
+# MAGIC ### Gen2: DW3000c
+# MAGIC ### 45.30 USD per Hour
+
+# COMMAND ----------
+
+# DBTITLE 1,Inserindo Dados com Scala = ? minutes [32 milhões]
 # MAGIC %scala
 # MAGIC 
 # MAGIC df_gold_reviews_synapse.write.format("com.databricks.spark.sqldw").option("url", sqlDwUrlSmall).option("dbtable", "ft_reviews").option("forward_spark_azure_storage_credentials","True").option("tempdir", tempDir).mode("overwrite").save()
 
 # COMMAND ----------
 
-# DBTITLE 1,Inserindo Dados com Spark SQL = 1.12 minutes
+# DBTITLE 1,Inserindo Dados com Spark SQL = ? minutes [32 milhões]
 # MAGIC %sql
 # MAGIC 
 # MAGIC DROP TABLE IF EXISTS ft_tb_reviews;
@@ -119,12 +126,27 @@
 # MAGIC CREATE TABLE ft_tb_reviews
 # MAGIC USING com.databricks.spark.sqldw
 # MAGIC OPTIONS (
-# MAGIC   url 'jdbc:sqlserver://owshq.database.windows.net:1433;database=owshq;user=luanmoreno@owshq;password={qq11ww22!!@@};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;',
+# MAGIC   url 'jdbc:sqlserver://onewaysolution.database.windows.net:1433;database=owshq;user=luanmoreno@onewaysolution;password={qq11ww22!!@@};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;',
 # MAGIC   forwardSparkAzureStorageCredentials 'true',
 # MAGIC   dbTable 'ft_tb_reviews',
 # MAGIC   tempDir 'wasbs://sqldw@brzluanmoreno.blob.core.windows.net/tempDirs'
 # MAGIC )
 # MAGIC AS SELECT * FROM gold_reviews
+
+# COMMAND ----------
+
+# MAGIC %md 
+# MAGIC 
+# MAGIC ### Query for Azure Synapse Analytics [Azure SQL Data Warehouse]
+# MAGIC 
+# MAGIC SELECT TOP 10  
+# MAGIC     store_name,     
+# MAGIC     store_city,   
+# MAGIC     COUNT(*) AS Q  
+# MAGIC FROM dbo.ft_reviews  
+# MAGIC WHERE user_importance = 'rockstar'  
+# MAGIC GROUP BY store_name, store_city  
+# MAGIC ORDER BY Q DESC  
 
 # COMMAND ----------
 
