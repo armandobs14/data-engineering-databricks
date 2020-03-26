@@ -56,12 +56,14 @@
 # MAGIC %scala
 # MAGIC 
 # MAGIC val df_gold_reviews = spark.table("gold_reviews")
+# MAGIC display(df_gold_reviews)
 
 # COMMAND ----------
 
-# DBTITLE 1,Mostrando Registros
-# MAGIC %scala
+# DBTITLE 1,Lendo o Delta Lake [gold_reviews] em PySpark
+# MAGIC %python
 # MAGIC 
+# MAGIC df_gold_reviews = spark.table("gold_reviews")
 # MAGIC display(df_gold_reviews)
 
 # COMMAND ----------
@@ -112,7 +114,7 @@
 # DBTITLE 1,Configurando Variáveis
 # MAGIC %scala
 # MAGIC 
-# MAGIC val jdbcHostname = "owshq.database.windows.net"
+# MAGIC val jdbcHostname = "onewaysolution.database.windows.net"
 # MAGIC val jdbcPort = 1433
 # MAGIC val jdbcDatabase = "sales"
 # MAGIC 
@@ -152,7 +154,7 @@
 # MAGIC             """.stripMargin
 # MAGIC 
 # MAGIC val config = Config(Map(
-# MAGIC   "url"               -> "owshq.database.windows.net",
+# MAGIC   "url"               -> "onewaysolution.database.windows.net",
 # MAGIC   "databaseName"      -> "sales",
 # MAGIC   "user"              -> "luanmoreno",
 # MAGIC   "password"          -> "qq11ww22!!@@",
@@ -170,14 +172,17 @@
 
 # COMMAND ----------
 
-# DBTITLE 1,Insert into Azure SQL DB = 15.31 minutes
+# DBTITLE 1,Insert into Azure SQL DB = 17.75 minutes [~ 32 milhões de registros] = Standard S6: 400 DTUs ~ 600 USD
 # MAGIC %scala
+# MAGIC 
+# MAGIC //durante inserte = S12: 3000 DTUs
+# MAGIC //custo mensal = USD 4500.27
 # MAGIC 
 # MAGIC import com.microsoft.azure.sqldb.spark.connect._
 # MAGIC import org.apache.spark.sql.SaveMode
 # MAGIC  
 # MAGIC val config = Config(Map(
-# MAGIC   "url"          -> "owshq.database.windows.net",
+# MAGIC   "url"          -> "onewaysolution.database.windows.net",
 # MAGIC   "databaseName" -> "sales",
 # MAGIC   "dbTable"      -> "gold_reviews",
 # MAGIC   "user"         -> "luanmoreno",
@@ -199,7 +204,7 @@
 # MAGIC             """.stripMargin
 # MAGIC 
 # MAGIC val config = Config(Map(
-# MAGIC   "url"               -> "owshq.database.windows.net",
+# MAGIC   "url"               -> "onewaysolution.database.windows.net",
 # MAGIC   "databaseName"      -> "sales",
 # MAGIC   "user"              -> "luanmoreno",
 # MAGIC   "password"          -> "qq11ww22!!@@",
@@ -210,7 +215,7 @@
 
 # COMMAND ----------
 
-# DBTITLE 1,Insert into Azure SQL DB with Bulk Copy = 4.99 minutes
+# DBTITLE 1,Insert into Azure SQL DB with Bulk Copy = 4.99 minutes [32 milhões]
 # MAGIC %scala
 # MAGIC 
 # MAGIC import com.microsoft.azure.sqldb.spark.bulkcopy.BulkCopyMetadata
@@ -218,7 +223,7 @@
 # MAGIC import com.microsoft.azure.sqldb.spark.connect._
 # MAGIC 
 # MAGIC val config = Config(Map(
-# MAGIC   "url"               -> "owshq.database.windows.net",
+# MAGIC   "url"               -> "onewaysolution.database.windows.net",
 # MAGIC   "databaseName"      -> "sales",
 # MAGIC   "user"              -> "luanmoreno",
 # MAGIC   "password"          -> "qq11ww22!!@@", 
@@ -229,6 +234,21 @@
 # MAGIC ))
 # MAGIC 
 # MAGIC df_gold_reviews.bulkCopyToSqlDB(config)
+
+# COMMAND ----------
+
+# MAGIC %md 
+# MAGIC 
+# MAGIC ### Query for Azure SQL DB
+# MAGIC 
+# MAGIC SELECT TOP 10  
+# MAGIC     store_name,     
+# MAGIC     store_city,   
+# MAGIC     COUNT(*) AS Q  
+# MAGIC FROM dbo.gold_reviews  
+# MAGIC WHERE user_importance = 'rockstar'  
+# MAGIC GROUP BY store_name, store_city  
+# MAGIC ORDER BY Q DESC  
 
 # COMMAND ----------
 
