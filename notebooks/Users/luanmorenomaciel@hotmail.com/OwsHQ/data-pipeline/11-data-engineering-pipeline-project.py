@@ -120,6 +120,94 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC 
+# MAGIC ## MySQL  
+# MAGIC > server name = owshqmysqldb  
+# MAGIC > mysql -u root  
+# MAGIC > files location = /home/luanmoreno/script-repo/files  
+# MAGIC 
+# MAGIC <br>
+# MAGIC 
+# MAGIC > DELETE FROM sales.sales_order_header;  
+# MAGIC > USE sales;  
+# MAGIC > SELECT COUNT(*) FROM sales_order_header;  
+# MAGIC > SHOW COLUMNS FROM sales_order_header;
+# MAGIC 
+# MAGIC <br>
+# MAGIC 
+# MAGIC > 
+# MAGIC LOAD DATA LOCAL INFILE '/home/luanmoreno/script-repo/files/mysql_sales_salesorderheader_1.csv'  
+# MAGIC INTO TABLE sales_order_header  
+# MAGIC FIELDS TERMINATED BY ','  
+# MAGIC IGNORE 1 ROWS;  
+# MAGIC 
+# MAGIC > 
+# MAGIC LOAD DATA LOCAL INFILE '/home/luanmoreno/script-repo/files/mysql_sales_salesorderheader_2.csv'  
+# MAGIC INTO TABLE sales_order_header  
+# MAGIC FIELDS TERMINATED BY ','  
+# MAGIC IGNORE 1 ROWS;  
+# MAGIC 
+# MAGIC <br>
+# MAGIC 
+# MAGIC > SELECT COUNT(*) FROM sales_order_header;  
+# MAGIC 
+# MAGIC <br>
+# MAGIC 
+# MAGIC >  
+# MAGIC LOAD DATA LOCAL INFILE '/home/luanmoreno/script-repo/files/mysql_sales_salesorderheader_row_1.csv'  
+# MAGIC INTO TABLE sales_order_header  
+# MAGIC FIELDS TERMINATED BY ','  
+# MAGIC IGNORE 1 ROWS;  
+# MAGIC 
+# MAGIC >  
+# MAGIC LOAD DATA LOCAL INFILE '/home/luanmoreno/script-repo/files/mysql_sales_salesorderheader_row_2.csv'  
+# MAGIC INTO TABLE sales_order_header  
+# MAGIC FIELDS TERMINATED BY ','  
+# MAGIC IGNORE 1 ROWS;  
+# MAGIC 
+# MAGIC >  
+# MAGIC LOAD DATA LOCAL INFILE '/home/luanmoreno/script-repo/files/mysql_sales_salesorderheader_row_3.csv'  
+# MAGIC INTO TABLE sales_order_header  
+# MAGIC FIELDS TERMINATED BY ','  
+# MAGIC IGNORE 1 ROWS;  
+# MAGIC 
+# MAGIC >  
+# MAGIC LOAD DATA LOCAL INFILE '/home/luanmoreno/script-repo/files/mysql_sales_salesorderheader_row_4.csv'  
+# MAGIC INTO TABLE sales_order_header  
+# MAGIC FIELDS TERMINATED BY ','  
+# MAGIC IGNORE 1 ROWS;  
+# MAGIC 
+# MAGIC <br>
+# MAGIC 
+# MAGIC ## Apache Kafka  
+# MAGIC > 
+# MAGIC curl -s "http://localhost:8083/connectors?expand=status" | \  
+# MAGIC jq 'to_entries[] | [.key, .value.status.connector.state,.value.status.tasks[].state]|join(":|:")' | \  
+# MAGIC column -s : -t| sed 's/\"//g'| sort  
+# MAGIC 
+# MAGIC <br>
+# MAGIC 
+# MAGIC > deploy connector  
+# MAGIC curl -X POST -H "Content-Type: application/json" --data '{ "name": "src-mysql-sales-order-header", "config": { "connector.class":"io.confluent.connect.jdbc.JdbcSourceConnector", "key.converter":"io.confluent.connect.avro.AvroConverter", "key.converter.schema.registry.url":"http://localhost:8081", "value.converter":"io.confluent.connect.avro.AvroConverter", "value.converter.schema.registry.url":"http://localhost:8081", "connection.url":"jdbc:mysql://owshqmysqldb.eastus2.cloudapp.azure.com:3306/sales?user=kafka_reader&password=demo@pass123", "connection.attempts":"2", "query":"SELECT * FROM sales_order_header", "mode":"incrementing", "topic.prefix":"src-mysql--sales-order-header", "incrementing.column.name":"SalesOrderID", "tasks.max":"2", "validate.non.null":"false" } }' http://localhost:8083/connectors  
+# MAGIC 
+# MAGIC > connector task  
+# MAGIC curl localhost:8083/connectors/src-mysql-sales-order-header/tasks | jq  
+# MAGIC 
+# MAGIC > connector status   
+# MAGIC curl localhost:8083/connectors/src-mysql-sales-order-header/status | jq  
+# MAGIC 
+# MAGIC > delete connector  
+# MAGIC curl -X DELETE localhost:8083/connectors/src-mysql-sales-order-header
+# MAGIC 
+# MAGIC > list topics  
+# MAGIC kafka-topics --list --zookeeper localhost:2181  
+# MAGIC 
+# MAGIC > read topic  
+# MAGIC kafka-avro-console-consumer --bootstrap-server localhost:9092 --property schema.registry.url=http://localhost:8081 --property print.key=true --from-beginning --topic src-mysql--sales-order-header  
+
+# COMMAND ----------
+
 # DBTITLE 1,Lendo Dados do Apache Kafka para o Delta Lake [scala]
 # MAGIC %scala
 # MAGIC 
@@ -127,16 +215,16 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC import org.apache.avro.SchemaBuilder
 # MAGIC 
 # MAGIC //kafka
-# MAGIC val kafkaBrokers = "13.77.73.67:9092"
+# MAGIC val kafkaBrokers = "52.177.14.43:9092"
 # MAGIC 
 # MAGIC //schema registry
-# MAGIC val schemaRegistryAddr = "http://13.77.73.67:8081"
+# MAGIC val schemaRegistryAddr = "http://52.177.14.43:8081"
 # MAGIC 
 # MAGIC //topic
-# MAGIC val mysql_topic = "mysql-ingest-sales_order_header"
+# MAGIC val mysql_topic = "src-mysql--sales-order-header"
 # MAGIC 
 # MAGIC //avro
-# MAGIC val mysql_avro = "mysql-ingest-sales_order_header-value"
+# MAGIC val mysql_avro = "src-mysql--sales-order-header-value"
 # MAGIC 
 # MAGIC //mysql ~ kafka
 # MAGIC val df_kafka_mysql = spark
@@ -150,8 +238,8 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC   .writeStream //escrevendo dados em streaming
 # MAGIC   .format("delta") 
 # MAGIC   .outputMode("append")
-# MAGIC   .option("checkpointLocation", "/delta/mysql/checkpoints/mysql-ingest-sales-order-header-str8") 
-# MAGIC   .start("/delta/bronze/ingest-bronze-sales-order-header_2")
+# MAGIC   .option("checkpointLocation", "/delta/mysql/checkpoints/mysql-ingest-sales-order-header-owshq") 
+# MAGIC   .start("/delta/bronze/ingest-bronze-sales-order-header-owshq")
 
 # COMMAND ----------
 
@@ -164,7 +252,7 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC --15.505
 # MAGIC 
 # MAGIC SELECT COUNT(*) AS amt
-# MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header_2`
+# MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header-owshq`
 
 # COMMAND ----------
 
@@ -278,14 +366,14 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC        value.TaxAmt,
 # MAGIC        value.Freight,
 # MAGIC        value.ModifiedDate
-# MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header_2`
+# MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header-owshq`
 
 # COMMAND ----------
 
 # MAGIC %sql
 # MAGIC 
 # MAGIC SELECT COUNT(*)
-# MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header_2`
+# MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header-owshq`
 
 # COMMAND ----------
 
@@ -308,7 +396,7 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC        value.TaxAmt,
 # MAGIC        value.Freight,
 # MAGIC        value.ModifiedDate
-# MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header_2`""")
+# MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header-owshq`""")
 # MAGIC 
 # MAGIC df_insert_silver_soh.write.format("delta").mode("append").save("/delta/silver_sales_order_header")
 
@@ -425,6 +513,3 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC 
 # MAGIC SELECT *
 # MAGIC FROM fact_sales
-
-# COMMAND ----------
-
