@@ -1,13 +1,20 @@
 # Databricks notebook source
 # MAGIC %md
+<<<<<<< HEAD
+=======
 # MAGIC 
 # MAGIC # Revisão das Tabelas
 # MAGIC 
+>>>>>>> master
 # MAGIC ##![Spark Logo Tiny](https://kpistoropen.blob.core.windows.net/collateral/roadshow/logo_spark_tiny.png)
 # MAGIC 
 # MAGIC <br>
 # MAGIC 
+<<<<<<< HEAD
+# MAGIC > agora que possuímos todas as silver tables (transformações) iremos criar nosso Dw(StarSchema)?/DataSet para consumo dos dados.  
+=======
 # MAGIC > agora que possuímos todas as silver tables (transformações) iremos criar nosso Dw(StarSchema)/DataSet para consumo dos dados.  
+>>>>>>> master
 # MAGIC > iremos realizar isso utilizando spark-sql para popular as informações vindas as diversas tabelas
 
 # COMMAND ----------
@@ -78,7 +85,11 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+# DBTITLE 1,Dimensão = silver_business
+=======
 # DBTITLE 1,Dimensão = silver_business [batch]
+>>>>>>> master
 # MAGIC %sql
 # MAGIC 
 # MAGIC --188.593
@@ -89,6 +100,28 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+# DBTITLE 1,Fato = stream_silver_reviews
+# MAGIC %sql
+# MAGIC 
+# MAGIC --11.00.449
+# MAGIC 
+# MAGIC SELECT *
+# MAGIC FROM delta.`/delta/stream_silver_reviews`
+# MAGIC LIMIT 100
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC 
+# MAGIC DELETE FROM delta.`/delta/reviews`
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC 
+# MAGIC VACUUM delta.`/delta/reviews`
+=======
 # DBTITLE 1,Dimensão = silver_business [stream]
 # MAGIC %sql
 # MAGIC 
@@ -107,6 +140,7 @@
 # MAGIC SELECT *
 # MAGIC FROM delta.`/delta/stream_silver_reviews`
 # MAGIC LIMIT 100
+>>>>>>> master
 
 # COMMAND ----------
 
@@ -131,7 +165,11 @@
 # DBTITLE 1,Criando DataSet [Gold] no Delta Lake
 # MAGIC %sql
 # MAGIC 
+<<<<<<< HEAD
+# MAGIC --42.79
+=======
 # MAGIC -- time spent: 1.79 min
+>>>>>>> master
 # MAGIC 
 # MAGIC DROP TABLE IF EXISTS gold_reviews;
 # MAGIC 
@@ -165,7 +203,11 @@
 # DBTITLE 1,Quantidade de Registros [gold_reviews]
 # MAGIC %sql
 # MAGIC 
+<<<<<<< HEAD
+# MAGIC --11.300.844
+=======
 # MAGIC --31.077.321
+>>>>>>> master
 # MAGIC 
 # MAGIC SELECT COUNT(*)
 # MAGIC FROM gold_reviews
@@ -177,6 +219,27 @@
 # MAGIC 
 # MAGIC SELECT *
 # MAGIC FROM gold_reviews
+<<<<<<< HEAD
+# MAGIC LIMIT 10
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC 
+# MAGIC ## Exploração dos Dados [gold_reviews]
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC 
+# MAGIC SELECT store_name, store_city, COUNT(*) AS Q
+# MAGIC FROM gold_reviews
+# MAGIC WHERE user_importance = "rockstar"
+# MAGIC GROUP BY store_name, store_city
+# MAGIC ORDER BY Q DESC
+# MAGIC LIMIT 5
+=======
+>>>>>>> master
 
 # COMMAND ----------
 

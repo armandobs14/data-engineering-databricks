@@ -79,7 +79,11 @@
 # MAGIC %scala
 # MAGIC 
 # MAGIC  val dwDatabase = "owshq"
+<<<<<<< HEAD
+# MAGIC  val dwServer = "owshq" 
+=======
 # MAGIC  val dwServer = "onewaysolution" 
+>>>>>>> master
 # MAGIC  val dwUser = "luanmoreno"
 # MAGIC  val dwPass = "qq11ww22!!@@"
 # MAGIC  val dwJdbcPort =  "1433"
@@ -104,6 +108,9 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+# DBTITLE 1,Inserindo Dados com Scala = 1.43 minutes
+=======
 # MAGIC %md
 # MAGIC 
 # MAGIC ### Gen2: DW3000c
@@ -112,13 +119,18 @@
 # COMMAND ----------
 
 # DBTITLE 1,Inserindo Dados com Scala = ? minutes [32 milhões]
+>>>>>>> master
 # MAGIC %scala
 # MAGIC 
 # MAGIC df_gold_reviews_synapse.write.format("com.databricks.spark.sqldw").option("url", sqlDwUrlSmall).option("dbtable", "ft_reviews").option("forward_spark_azure_storage_credentials","True").option("tempdir", tempDir).mode("overwrite").save()
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+# DBTITLE 1,Inserindo Dados com Spark SQL = 1.11 minutes
+=======
 # DBTITLE 1,Inserindo Dados com Spark SQL = ? minutes [32 milhões]
+>>>>>>> master
 # MAGIC %sql
 # MAGIC 
 # MAGIC DROP TABLE IF EXISTS ft_tb_reviews;
@@ -126,7 +138,11 @@
 # MAGIC CREATE TABLE ft_tb_reviews
 # MAGIC USING com.databricks.spark.sqldw
 # MAGIC OPTIONS (
+<<<<<<< HEAD
+# MAGIC   url 'jdbc:sqlserver://owshq.database.windows.net:1433;database=owshq;user=luanmoreno@owshq;password={qq11ww22!!@@};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;',
+=======
 # MAGIC   url 'jdbc:sqlserver://onewaysolution.database.windows.net:1433;database=owshq;user=luanmoreno@onewaysolution;password={qq11ww22!!@@};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;',
+>>>>>>> master
 # MAGIC   forwardSparkAzureStorageCredentials 'true',
 # MAGIC   dbTable 'ft_tb_reviews',
 # MAGIC   tempDir 'wasbs://sqldw@brzluanmoreno.blob.core.windows.net/tempDirs'
@@ -135,6 +151,8 @@
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
 # MAGIC %md 
 # MAGIC 
 # MAGIC ### Query for Azure Synapse Analytics [Azure SQL Data Warehouse]
@@ -150,3 +168,4 @@
 
 # COMMAND ----------
 
+>>>>>>> master

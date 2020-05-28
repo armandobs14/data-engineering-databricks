@@ -154,9 +154,7 @@ sql("SELECT * FROM ds_user").explain()
 # COMMAND ----------
 
 # DBTITLE 1,Movendo do SparkSQL para a Engine Python [PySpark] com [df_user]
-# MAGIC %python
-# MAGIC 
-# MAGIC df_user = spark.sql("SELECT * FROM ds_user")
+df_user = spark.sql("SELECT * FROM ds_user")
 
 # COMMAND ----------
 
@@ -380,7 +378,6 @@ df_users_silver.count()
 # MAGIC 
 # MAGIC SELECT *
 # MAGIC FROM df_users_silver
-# MAGIC WHERE importance = 'rockstar'
 
 # COMMAND ----------
 

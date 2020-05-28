@@ -136,13 +136,6 @@ spark.sql("DROP TABLE IF EXISTS tmp_business")
 
 # COMMAND ----------
 
-# DBTITLE 1,Deletando Tabela
-# MAGIC %sql
-# MAGIC 
-# MAGIC DROP TABLE tmp_business
-
-# COMMAND ----------
-
 # DBTITLE 1,Criando Delta Table utilizando spark.sql no Python
 spark.sql("CREATE TABLE tmp_business USING DELTA LOCATION '/mnt/prod-files/bronze-tables/bronze_business'")
 

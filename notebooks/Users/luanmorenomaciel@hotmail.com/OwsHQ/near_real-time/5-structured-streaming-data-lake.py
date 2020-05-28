@@ -165,6 +165,7 @@ StreamingDfReviews \
 # MAGIC 
 # MAGIC --1 = 5.996.996
 # MAGIC --2 = 11.993.992
+# MAGIC --3 = 23.987.984
 # MAGIC 
 # MAGIC SELECT COUNT(*) AS reviews
 # MAGIC FROM delta.`/delta/reviews`
@@ -369,10 +370,8 @@ bronze_df_reviews \
 # MAGIC %sql
 # MAGIC 
 # MAGIC -- 5.996.996
-# MAGIC -- 11.993.992
 # MAGIC -- 17.990.988
 # MAGIC -- 23.987.984
-# MAGIC -- 41.978.972
 # MAGIC 
 # MAGIC SELECT COUNT(*)
 # MAGIC FROM delta.`/delta/stream_bronze_reviews`
@@ -435,7 +434,6 @@ df_silver_reviews = spark.readStream \
 # MAGIC %sql
 # MAGIC 
 # MAGIC -- 11.300.844
-# MAGIC -- 22.601.688
 # MAGIC 
 # MAGIC SELECT COUNT(*)
 # MAGIC FROM delta.`/delta/stream_silver_reviews`
@@ -446,16 +444,6 @@ df_silver_reviews = spark.readStream \
 # MAGIC 
 # MAGIC SELECT *
 # MAGIC FROM delta.`/delta/stream_silver_reviews`
-# MAGIC LIMIT 100
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC 
-# MAGIC SELECT business_id, AVG(stars) AS avg_stars, COUNT(*) AS amount
-# MAGIC FROM delta.`/delta/stream_silver_reviews`
-# MAGIC GROUP BY business_id
-# MAGIC ORDER BY amount DESC
 # MAGIC LIMIT 100
 
 # COMMAND ----------

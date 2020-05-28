@@ -51,6 +51,14 @@
 # COMMAND ----------
 
 # DBTITLE 1,Carregando DataFrame [DF] do Data Lake
+<<<<<<< HEAD
+# sales data
+df_sales_order_header = spark.read.parquet("dbfs:/mnt/adv-works-stg-files/AdventureWorks/Sales_SalesOrderHeader.parquet")
+df_sales_order_detail = spark.read.parquet("dbfs:/mnt/adv-works-stg-files/AdventureWorks/Sales_SalesOrderDetail.parquet")
+
+# product data
+df_product = spark.read.parquet("dbfs:/mnt/adv-works-stg-files/AdventureWorks/Production_Product.parquet")
+=======
 # MAGIC %python
 # MAGIC 
 # MAGIC # sales data
@@ -59,6 +67,7 @@
 # MAGIC 
 # MAGIC # product data
 # MAGIC df_product = spark.read.parquet("dbfs:/mnt/adv-works-stg-files/AdventureWorks/Production_Product.parquet")
+>>>>>>> master
 
 # COMMAND ----------
 
@@ -120,6 +129,8 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 
 # COMMAND ----------
 
+<<<<<<< HEAD
+=======
 # MAGIC %md
 # MAGIC 
 # MAGIC ## MySQL  
@@ -208,6 +219,7 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 
 # COMMAND ----------
 
+>>>>>>> master
 # DBTITLE 1,Lendo Dados do Apache Kafka para o Delta Lake [scala]
 # MAGIC %scala
 # MAGIC 
@@ -215,6 +227,18 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC import org.apache.avro.SchemaBuilder
 # MAGIC 
 # MAGIC //kafka
+<<<<<<< HEAD
+# MAGIC val kafkaBrokers = "13.77.73.67:9092"
+# MAGIC 
+# MAGIC //schema registry
+# MAGIC val schemaRegistryAddr = "http://13.77.73.67:8081"
+# MAGIC 
+# MAGIC //topic
+# MAGIC val mysql_topic = "mysql-ingest-sales_order_header"
+# MAGIC 
+# MAGIC //avro
+# MAGIC val mysql_avro = "mysql-ingest-sales_order_header-value"
+=======
 # MAGIC val kafkaBrokers = "52.177.14.43:9092"
 # MAGIC 
 # MAGIC //schema registry
@@ -225,6 +249,7 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC 
 # MAGIC //avro
 # MAGIC val mysql_avro = "src-mysql--sales-order-header-value"
+>>>>>>> master
 # MAGIC 
 # MAGIC //mysql ~ kafka
 # MAGIC val df_kafka_mysql = spark
@@ -238,13 +263,22 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC   .writeStream //escrevendo dados em streaming
 # MAGIC   .format("delta") 
 # MAGIC   .outputMode("append")
+<<<<<<< HEAD
+# MAGIC   .option("checkpointLocation", "/delta/mysql/checkpoints/mysql-ingest-sales-order-header-str7") 
+# MAGIC   .start("/delta/bronze/ingest-bronze-sales-order-header_1")
+=======
 # MAGIC   .option("checkpointLocation", "/delta/mysql/checkpoints/mysql-ingest-sales-order-header-owshq") 
 # MAGIC   .start("/delta/bronze/ingest-bronze-sales-order-header-owshq")
+>>>>>>> master
 
 # COMMAND ----------
 
 # MAGIC %sql
 # MAGIC 
+<<<<<<< HEAD
+# MAGIC SELECT COUNT(*) AS amt
+# MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header_1`
+=======
 # MAGIC --15.501
 # MAGIC --15.502
 # MAGIC --15.503
@@ -253,6 +287,7 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC 
 # MAGIC SELECT COUNT(*) AS amt
 # MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header-owshq`
+>>>>>>> master
 
 # COMMAND ----------
 
@@ -366,6 +401,9 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC        value.TaxAmt,
 # MAGIC        value.Freight,
 # MAGIC        value.ModifiedDate
+<<<<<<< HEAD
+# MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header_1`
+=======
 # MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header-owshq`
 
 # COMMAND ----------
@@ -374,6 +412,7 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC 
 # MAGIC SELECT COUNT(*)
 # MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header-owshq`
+>>>>>>> master
 
 # COMMAND ----------
 
@@ -396,7 +435,11 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC        value.TaxAmt,
 # MAGIC        value.Freight,
 # MAGIC        value.ModifiedDate
+<<<<<<< HEAD
+# MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header_1`""")
+=======
 # MAGIC FROM delta.`/delta/bronze/ingest-bronze-sales-order-header-owshq`""")
+>>>>>>> master
 # MAGIC 
 # MAGIC df_insert_silver_soh.write.format("delta").mode("append").save("/delta/silver_sales_order_header")
 
@@ -512,4 +555,11 @@ df_product.write.format("delta").mode("append").save("/delta/bronze_product/")
 # MAGIC %sql
 # MAGIC 
 # MAGIC SELECT *
+<<<<<<< HEAD
 # MAGIC FROM fact_sales
+
+# COMMAND ----------
+
+=======
+# MAGIC FROM fact_sales
+>>>>>>> master

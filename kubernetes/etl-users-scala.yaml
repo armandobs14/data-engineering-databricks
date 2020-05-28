@@ -1,0 +1,41 @@
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: etl-users-scala
+  namespace: spark
+spec:
+  type: Scala
+  mode: cluster
+  image: "owshq/etl-users-scala:latest"
+  imagePullPolicy: Always
+  mainClass: luanmoreno.Users
+  mainApplicationFile: "local:///app/target/scala-2.11/etl-users-scala_2.11-0.1.jar"
+  sparkVersion: "2.4.5"
+  restartPolicy:
+    type: OnFailure
+    onFailureRetries: 3
+    onFailureRetryInterval: 10
+    onSubmissionFailureRetries: 5
+    onSubmissionFailureRetryInterval: 20
+  sparkConf:
+    "io.delta": "delta-core_2.11:0.6.0"
+  hadoopConf:
+    "spark.delta.logStore.class": "org.apache.spark.sql.delta.storage.S3SingleDriverLogStore"
+    "fs.s3a.endpoint": "http://20.44.75.168:9000"
+    "fs.s3a.access.key": "GmQHw2AM8P"
+    "fs.s3a.secret.key": "OsVwwowVFuq6TQUoCAfp5SLc7rFQ8opkNdVenB6n"
+    "fs.s3a.path.style.access": "true"
+    "fs.s3a.impl": "org.apache.hadoop.fs.s3a.S3AFileSystem"
+  driver:
+    cores: 1
+    coreLimit: "1200m"
+    memory: "512m"
+    labels:
+      version: 2.4.5
+    serviceAccount: spark-sparkoperator
+  executor:
+    cores: 1
+    instances: 3
+    memory: "512m"
+    labels:
+      version: 2.4.5
