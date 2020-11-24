@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="dd6d160f-3761-49c4-9844-04ff623e1bf0" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JupyterTrust" id="36694dc1-d800-4e67-bdf7-c8635684ce01" />
+  <component name="ProjectId" id="1khfy9YG8xAhYu1odXSHV6K4hxL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="yelp-elt-py" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/local.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>$USER_HOME$/.subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dd6d160f-3761-49c4-9844-04ff623e1bf0" name="Default Changelist" comment="" />
+      <created>1590420458190</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1590420458190</updated>
+      <workItem from="1590420459462" duration="10952000" />
+      <workItem from="1590442896465" duration="3049000" />
+      <workItem from="1590493242298" duration="1761000" />
+      <workItem from="1606157997929" duration="3679000" />
+      <workItem from="1606165801783" duration="263000" />
+      <workItem from="1606167287799" duration="2773000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/../.." />
+    </ignored-roots>
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="2006" height="409" key="GridCell.Tab.0.bottom" timestamp="1606182100488">
+      <screen x="0" y="23" width="2048" height="1129" />
+    </state>
+    <state width="2006" height="409" key="GridCell.Tab.0.bottom/0.23.2048.1129/-2048.23.2048.1129/2048.23.1920.1057@0.23.2048.1129" timestamp="1606182100488" />
+    <state width="2006" height="409" key="GridCell.Tab.0.center" timestamp="1606182100487">
+      <screen x="0" y="23" width="2048" height="1129" />
+    </state>
+    <state width="2006" height="409" key="GridCell.Tab.0.center/0.23.2048.1129/-2048.23.2048.1129/2048.23.1920.1057@0.23.2048.1129" timestamp="1606182100487" />
+    <state width="2006" height="409" key="GridCell.Tab.0.left" timestamp="1606182100449">
+      <screen x="0" y="23" width="2048" height="1129" />
+    </state>
+    <state width="2006" height="409" key="GridCell.Tab.0.left/0.23.2048.1129/-2048.23.2048.1129/2048.23.1920.1057@0.23.2048.1129" timestamp="1606182100449" />
+    <state width="2006" height="409" key="GridCell.Tab.0.right" timestamp="1606182100487">
+      <screen x="0" y="23" width="2048" height="1129" />
+    </state>
+    <state width="2006" height="409" key="GridCell.Tab.0.right/0.23.2048.1129/-2048.23.2048.1129/2048.23.1920.1057@0.23.2048.1129" timestamp="1606182100487" />
+    <state x="533" y="226" key="SettingsEditor" timestamp="1606167344741">
+      <screen x="0" y="23" width="2048" height="1129" />
+    </state>
+    <state x="533" y="226" key="SettingsEditor/0.23.2048.1129/-2048.23.2048.1129/2048.23.1920.1057@0.23.2048.1129" timestamp="1606167344741" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/pyspark_yelp_elt_py$main.coverage" NAME="main Coverage Results" MODIFIED="1606177490818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/yelp_elt_py$main.coverage" NAME="main Coverage Results" MODIFIED="1606158789252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
